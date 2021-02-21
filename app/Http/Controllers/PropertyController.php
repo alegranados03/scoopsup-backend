@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Buys\Buy;
 use Illuminate\Http\Request;
-
-class BuyController extends Controller
+use App\Models\Products\ProductProperty;
+class PropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,18 @@ class BuyController extends Controller
      */
     public function index()
     {
-        $buys=Buy::all();
-        return ['data'=>$buys];
+        $properties=ProductProperty::all();
+        return ['data'=>$properties];
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+
     }
 
     /**
@@ -26,50 +35,59 @@ class BuyController extends Controller
      */
     public function store(Request $request)
     {
-        $buy=Buy::create([
-            'total'=>$request->total,
-            'buy_date'=>$request->buy_date,
+        $property=ProductProperty::create([
+            'name'=>$request->name
         ]);
-        return ['data'=>$buy];
+        return ['data'=>$property];
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Buy  $buy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Buy $buy)
+    public function show(ProductProperty $property)
     {
-        return ['data'=>$buy];
+        return ['data'=>$property];
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Buy  $buy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $buy=Buy::find($request->id);
-        $buy->update([
-            'total'=>$request->total,
-            'buy_date'=>$request->buy_date,
+        $property=ProductProperty::find($request->id);
+        $property->update([
+            'name'=>$request->name
         ]);
-        return ['data'=>$buy];
+        return ['data'=>$property];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Buy  $buy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Buy $buy)
+    public function destroy(ProductProperty $property)
     {
-        if($buy->delete())
+        if($property->delete())
         {
             return ['message'=>"Delete succesfully"];
         }

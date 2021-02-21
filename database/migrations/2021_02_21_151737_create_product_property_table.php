@@ -19,6 +19,7 @@ class CreateProductPropertyTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('property_id');
             $table->foreign('property_id')->references('id')->on('properties');
+            $table->string('value');
             $table->timestamps();
         });
     }

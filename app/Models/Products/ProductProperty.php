@@ -10,7 +10,7 @@ class ProductProperty extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'properties';
-
+    protected $fillable=['name'];
     public function products()
     {
         return $this->belongsToMany('App\Models\Products\Product','product_property','property_id','product_id');

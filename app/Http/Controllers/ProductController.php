@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products=Product::all();
+        return ['data'=>$products];
     }
 
 
@@ -26,7 +27,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product=Product::create([
+            'name'=>$request->name,
+            'existance'=>$request->existance,
+            'unit_price'=>$request->unit_price,
+        ]);
+        foreach ($request->properties as $property) {
+            $product->properties()->attach($property["id"], ['value' => $property["value"]]);
+        }
+        return ['data'=>$product];
     }
 
     /**
@@ -37,7 +46,12 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return ['data'=>["product"=>[
+                        "id"=>$product->id,
+                        "name"=>$product->name,
+                        "existance"=>$product->existance,
+                        "unit_price"=>$product->unit_price]
+                        ,"properties"=>$product->properties]];
     }
 
 
@@ -48,9 +62,15 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        //
+        $product=Product::find($request->id);
+        $product->update([
+            'name'=>$request->name,
+            'existance'=>$request->existance,
+            'unit_price'=>$request->unit_price,
+        ]);
+        return ['data'=>$product];
     }
 
     /**
@@ -61,6 +81,20 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if($product->delete())
+        {
+            return ['message'=>"Delete succesfully"];
+        }
+        else{
+            return ['message'=>"Delete failed"];
+        }
+    }
+
+    public function setPrice(Request $request, $id){
+        $product=Product::find($id);
+        $product->update([
+            'unit_price'=>$request->unit_price
+        ]);
+        return ['data'=>$product];
     }
 }

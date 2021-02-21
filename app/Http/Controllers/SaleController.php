@@ -14,7 +14,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $sales=Sale::all();
+        return ['data'=>$sales];
     }
 
     /**
@@ -25,7 +26,11 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sale=Sale::create([
+            'total'=>$request->total,
+            'sale_date'=>$request->sale_date,
+        ]);
+        return ['data'=>$sale];
     }
 
     /**
@@ -36,7 +41,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        return ['data'=>$sale];
     }
 
     /**
@@ -46,9 +51,14 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request)
     {
-        //
+        $sale=Sale::find($request->id);
+        $sale->update([
+            'total'=>$request->total,
+            'sale_date'=>$request->sale_date,
+        ]);
+        return ['data'=>$sale];
     }
 
     /**
@@ -59,6 +69,12 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        if($sale->delete())
+        {
+            return ['message'=>"Delete succesfully"];
+        }
+        else{
+            return ['message'=>"Delete failed"];
+        }
     }
 }
