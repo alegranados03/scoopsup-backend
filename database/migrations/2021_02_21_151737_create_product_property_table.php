@@ -23,7 +23,15 @@ class CreateProductPropertyTable extends Migration
             $table->timestamps();
         });
     }
-
+/*properties
+•	id
+•	name
+product_property
+•	id
+•	product_id
+•	property_id
+•	value
+*/
     /**
      * Reverse the migrations.
      *

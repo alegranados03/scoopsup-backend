@@ -17,6 +17,8 @@ class CreateSalesTable extends Migration
             $table->id();
             $table->decimal('total', $precision = 8, $scale = 2)->default(0.00);
             $table->dateTime('sale_date');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
             $table->softDeletes();
         });

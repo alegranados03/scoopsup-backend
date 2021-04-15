@@ -20,7 +20,6 @@ class CreateSaleDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('quantity')->default(0);
-            $table->decimal('unit_price', $precision = 8, $scale = 2)->default(0.00);
             $table->decimal('subtotal', $precision = 8, $scale = 2)->default(0.00);
             $table->timestamps();
         });
