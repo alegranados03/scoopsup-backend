@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateVendorsTable extends Migration
 {
     /**
-     * Run the migrations.
+     *
      *
      * @return void
      */

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateProductPropertyTable extends Migration
 {
     /**
-     * Run the migrations.
+     *
      *
      * @return void
      */
@@ -23,15 +23,7 @@ class CreateProductPropertyTable extends Migration
             $table->timestamps();
         });
     }
-/*properties
-•	id
-•	name
-product_property
-•	id
-•	product_id
-•	property_id
-•	value
-*/
+
     /**
      * Reverse the migrations.
      *
